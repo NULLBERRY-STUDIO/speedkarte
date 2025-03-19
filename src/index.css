@@ -1,0 +1,175 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 98%;
+    --foreground: 240 6% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 240 6% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 6% 10%;
+
+    --primary: 292 55% 45%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 240 5% 96%;
+    --secondary-foreground: 240 6% 10%;
+
+    --muted: 240 5% 96%;
+    --muted-foreground: 240 4% 46%;
+
+    --accent: 292 55% 96%;
+    --accent-foreground: 292 55% 45%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 6% 90%;
+    --input: 240 6% 90%;
+    --ring: 292 55% 45%;
+
+    --radius: 0.75rem;
+
+    /* Berry colors */
+    --berry-50: 292 55% 98%;
+    --berry-100: 292 55% 96%;
+    --berry-200: 292 55% 90%;
+    --berry-300: 292 55% 80%;
+    --berry-400: 292 55% 65%;
+    --berry-500: 292 55% 45%;
+    --berry-600: 292 55% 35%;
+    --berry-700: 292 55% 25%;
+    --berry-800: 292 55% 20%;
+    --berry-900: 292 55% 15%;
+    --berry-950: 292 55% 10%;
+  }
+
+  .dark {
+    --background: 240 6% 10%;
+    --foreground: 0 0% 98%;
+
+    --card: 240 6% 13%;
+    --card-foreground: 0 0% 98%;
+
+    --popover: 240 6% 13%;
+    --popover-foreground: 0 0% 98%;
+
+    --primary: 292 55% 65%;
+    --primary-foreground: 240 6% 10%;
+
+    --secondary: 240 4% 16%;
+    --secondary-foreground: 0 0% 98%;
+
+    --muted: 240 4% 16%;
+    --muted-foreground: 240 5% 65%;
+
+    --accent: 292 55% 20%;
+    --accent-foreground: 292 55% 65%;
+
+    --destructive: 0 63% 31%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 240 4% 16%;
+    --input: 240 4% 16%;
+    --ring: 292 55% 65%;
+
+    /* Berry colors - same in dark mode */
+    --berry-50: 292 55% 98%;
+    --berry-100: 292 55% 96%;
+    --berry-200: 292 55% 90%;
+    --berry-300: 292 55% 80%;
+    --berry-400: 292 55% 65%;
+    --berry-500: 292 55% 45%;
+    --berry-600: 292 55% 35%;
+    --berry-700: 292 55% 25%;
+    --berry-800: 292 55% 20%;
+    --berry-900: 292 55% 15%;
+    --berry-950: 292 55% 10%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    font-family: 'Inter', sans-serif;
+  }
+
+  body {
+    @apply bg-background text-foreground min-h-screen;
+    font-feature-settings: "rlig" 1, "calt" 1;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    @apply backdrop-blur-md bg-white/40 border border-white/20 rounded-2xl shadow-sm;
+  }
+  
+  .glass-panel-dark {
+    @apply backdrop-blur-md bg-black/30 border border-white/10 rounded-2xl shadow-sm;
+  }
+  
+  .text-balance {
+    text-wrap: balance;
+  }
+  
+  .section-title {
+    @apply text-xl md:text-2xl font-semibold tracking-tight;
+  }
+  
+  .subsection-title {
+    @apply text-lg font-medium tracking-tight;
+  }
+  
+  .slider-track {
+    @apply h-2 rounded-full bg-neutral-200 dark:bg-neutral-800 relative;
+  }
+  
+  .slider-track-filled {
+    @apply h-full rounded-full bg-berry-500 absolute left-0 top-0;
+  }
+  
+  .slider-thumb {
+    @apply w-5 h-5 rounded-full bg-berry-500 absolute top-1/2 transform -translate-y-1/2 -ml-2.5 cursor-pointer shadow-md transition-transform duration-100 hover:scale-110 active:scale-95;
+  }
+  
+  .info-tag {
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-berry-100 dark:bg-berry-900 text-berry-600 dark:text-berry-300;
+  }
+  
+  .card-hover-effect {
+    @apply transition-all duration-300 hover:shadow-md hover:-translate-y-1;
+  }
+  
+  .frosted-glass {
+    @apply backdrop-blur-md bg-neutral-100/70 dark:bg-neutral-800/50 border border-neutral-200/20 dark:border-neutral-700/20 shadow-sm;
+  }
+  
+  .frosted-glass-darker {
+    @apply backdrop-blur-md bg-neutral-50/90 dark:bg-neutral-900/70 border border-neutral-200/20 dark:border-neutral-700/20 shadow-sm;
+  }
+  
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-berry-400 to-berry-600 dark:from-berry-300 dark:to-berry-500 animate-text-shimmer bg-[size:200%];
+  }
+}
+
+@layer utilities {
+  .animate-text-shimmer {
+    animation: text-shimmer 2s ease-in-out infinite;
+  }
+  
+  @keyframes text-shimmer {
+    0% { background-position: 100%; }
+    100% { background-position: 0%; }
+  }
+}
