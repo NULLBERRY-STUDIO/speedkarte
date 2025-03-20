@@ -1,130 +1,143 @@
-import React, { useState, useRef, useEffect, useCallback } from "react";
-import { SPEED_LIMITS, SLIDER_RANGES, RoadType } from "@/lib/constants";
-import { Car, GaugeCircle } from "lucide-react";
+
+import React from "react";
+import { Slider } from "@/components/ui/slider";
+import { ROAD_TYPES, SPEED_LIMITS, RoadType } from "@/lib/constants";
+import { LucideIcon, RefreshCcw } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 interface SpeedSliderProps {
   roadType: RoadType;
   value: number;
   onChange: (value: number) => void;
+  roadLabel?: string; // For translations
+  resetLabel?: string; // For translations
 }
 
-const SpeedSlider: React.FC<SpeedSliderProps> = ({ roadType, value, onChange }) => {
-  const [isDragging, setIsDragging] = useState(false);
-  const sliderRef = useRef<HTMLDivElement>(null);
-  const range = SLIDER_RANGES[roadType];
+const SpeedSlider: React.FC<SpeedSliderProps> = ({ 
+  roadType, 
+  value, 
+  onChange,
+  roadLabel,
+  resetLabel = "Reset to limit"
+}) => {
+  // Define the max value for each road type (speed limit + 100)
+  const MAX_SPEEDS = {
+    [ROAD_TYPES.URBAN]: SPEED_LIMITS[ROAD_TYPES.URBAN] + 100,
+    [ROAD_TYPES.RURAL]: SPEED_LIMITS[ROAD_TYPES.RURAL] + 100,
+    [ROAD_TYPES.HIGHWAY]: SPEED_LIMITS[ROAD_TYPES.HIGHWAY] + 70
+  };
+  
+  // Get the speed limits and max values
   const speedLimit = SPEED_LIMITS[roadType];
+  const maxSpeed = MAX_SPEEDS[roadType];
   
-  // Calculate percentage for visual display
-  const percentage = ((value - range.min) / (range.max - range.min)) * 100;
-  const speedLimitPercentage = ((speedLimit - range.min) / (range.max - range.min)) * 100;
+  // Determine if vehicle is speeding and by how much
+  const isOverLimit = value > speedLimit;
+  const overLimitAmount = value - speedLimit;
+  const percentage = Math.min(100, (overLimitAmount / (maxSpeed - speedLimit)) * 100);
   
-  // Handle interaction events - wrap in useCallback to prevent infinite loops
-  const handleMove = useCallback((clientX: number) => {
-    if (!sliderRef.current) return;
-    
-    const rect = sliderRef.current.getBoundingClientRect();
-    const position = (clientX - rect.left) / rect.width;
-    const newValue = Math.round(range.min + position * (range.max - range.min));
-    
-    // Clamp value to range
-    const clampedValue = Math.max(range.min, Math.min(range.max, newValue));
-    onChange(clampedValue);
-  }, [range.min, range.max, onChange]);
-  
-  const handleMouseDown = (e: React.MouseEvent) => {
-    setIsDragging(true);
-    handleMove(e.clientX);
+  // Handle reset to limit
+  const handleReset = () => {
+    onChange(speedLimit);
   };
   
-  const handleTouchStart = (e: React.TouchEvent) => {
-    setIsDragging(true);
-    handleMove(e.touches[0].clientX);
-  };
-  
-  // Event handlers for mousemove and touchmove
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (isDragging) handleMove(e.clientX);
-    };
+  // Get the appropriate styles for the slider based on speeding amount
+  const getSliderClass = () => {
+    let bgClass = "bg-green-500";
     
-    const handleTouchMove = (e: TouchEvent) => {
-      if (isDragging) handleMove(e.touches[0].clientX);
-    };
-    
-    const handleEnd = () => setIsDragging(false);
-    
-    if (isDragging) {
-      window.addEventListener("mousemove", handleMouseMove);
-      window.addEventListener("touchmove", handleTouchMove);
-      window.addEventListener("mouseup", handleEnd);
-      window.addEventListener("touchend", handleEnd);
+    if (percentage > 0) {
+      if (percentage < 25) bgClass = "bg-yellow-500";
+      else if (percentage < 50) bgClass = "bg-amber-500";
+      else if (percentage < 75) bgClass = "bg-orange-500";
+      else bgClass = "bg-red-500";
     }
     
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      window.removeEventListener("touchmove", handleTouchMove);
-      window.removeEventListener("mouseup", handleEnd);
-      window.removeEventListener("touchend", handleEnd);
-    };
-  }, [isDragging, handleMove]);
+    return bgClass;
+  };
   
-  // Determine color based on speed vs. speed limit
-  const getTrackColor = () => {
-    if (value <= speedLimit) return "bg-emerald-500";
-    if (value <= speedLimit * 1.2) return "bg-amber-500";
-    if (value <= speedLimit * 1.5) return "bg-orange-500";
-    return "bg-berry-600 dark:bg-berry-500";
+  // Get dynamic background for the slider container
+  const getContainerStyle = (): React.CSSProperties => {
+    // Background color transitions based on speed
+    let bgGradient = "linear-gradient(to right, #4ade80, #4ade80)";
+    
+    if (percentage > 0) {
+      if (percentage < 25) {
+        bgGradient = "linear-gradient(to right, #4ade80, #eab308)";
+      } else if (percentage < 50) {
+        bgGradient = "linear-gradient(to right, #eab308, #f59e0b)";
+      } else if (percentage < 75) {
+        bgGradient = "linear-gradient(to right, #f59e0b, #ef4444)";
+      } else {
+        bgGradient = "linear-gradient(to right, #ef4444, #b91c1c)";
+      }
+    }
+    
+    return {
+      background: isOverLimit ? bgGradient : "var(--background)",
+      transition: "background 0.5s ease",
+      opacity: 0.1 + (isOverLimit ? percentage / 200 : 0),
+    };
   };
   
   return (
-    <div className="py-4 select-none animate-fade-in bg-neutral-100 dark:bg-neutral-800 rounded-xl p-4 border border-neutral-200 dark:border-neutral-700">
-      <div className="flex items-center justify-between mb-1">
-        <span className="text-sm font-medium flex items-center text-gray-800 dark:text-gray-200">
-          <GaugeCircle className="w-4 h-4 text-berry-500 dark:text-berry-400 mr-1.5" />
-          {roadType.charAt(0).toUpperCase() + roadType.slice(1)} Roads
-        </span>
-        <span className="text-2xl font-semibold text-gray-900 dark:text-white">
-          {value} <span className="text-sm font-normal text-gray-600 dark:text-gray-400">km/h</span>
-        </span>
-      </div>
-      
+    <div className="relative">
+      {/* Background gradient container */}
       <div 
-        ref={sliderRef}
-        className="slider-track my-4"
-        onMouseDown={handleMouseDown}
-        onTouchStart={handleTouchStart}
-      >
-        {/* Filled track */}
-        <div 
-          className={`slider-track-filled ${getTrackColor()}`} 
-          style={{ width: `${percentage}%` }}
-        />
-        
-        {/* Speed limit marker */}
-        <div 
-          className="absolute w-0.5 h-4 bg-gray-900/70 dark:bg-gray-200/70 top-1/2 transform -translate-y-1/2 z-10"
-          style={{ left: `${speedLimitPercentage}%` }}
-        >
-          <div className="absolute -top-6 -translate-x-1/2 text-xs font-medium text-gray-800 dark:text-gray-200">
-            Limit
+        className="absolute inset-0 rounded-lg -z-10 opacity-10 overflow-hidden"
+        style={getContainerStyle()}
+      ></div>
+      
+      <div className="p-4 rounded-lg border border-border transition-all duration-300 hover:border-primary/40">
+        <div className="flex items-center justify-between mb-3">
+          <div className="flex items-center gap-2">
+            <div className={`text-sm font-medium ${isOverLimit ? 'text-foreground' : 'text-foreground/70'}`}>
+              {roadLabel || roadType.charAt(0).toUpperCase() + roadType.slice(1).toLowerCase()}
+            </div>
+            {isOverLimit && (
+              <div 
+                className={`px-1.5 py-0.5 text-xs rounded ${getSliderClass()} text-white animate-pulse flex items-center`}
+              >
+                +{Math.round(overLimitAmount)} km/h
+              </div>
+            )}
+          </div>
+          
+          <div className="flex items-center gap-1">
+            <Button 
+              variant="ghost" 
+              size="sm" 
+              className="h-7 px-2 text-xs"
+              onClick={handleReset}
+              disabled={value === speedLimit}
+              title={resetLabel}
+            >
+              <RefreshCcw className="h-3 w-3 mr-1" />
+              <span>{resetLabel}</span>
+            </Button>
+            <div className="font-medium tabular-nums">
+              {value} km/h
+            </div>
           </div>
         </div>
         
-        {/* Thumb with car icon */}
-        <div 
-          className={`slider-thumb flex items-center justify-center ${getTrackColor()} ${isDragging ? 'scale-110 ring ring-berry-300 dark:ring-berry-700' : ''}`}
-          style={{ left: `${percentage}%` }}
-        >
-          <Car className="w-3 h-3 text-white" />
+        <Slider
+          value={[value]}
+          min={10}
+          max={maxSpeed}
+          step={1}
+          onValueChange={(values) => onChange(values[0])}
+          className={`py-1 ${getSliderClass()}`}
+        />
+        
+        <div className="flex justify-between mt-1 text-xs text-muted-foreground">
+          <span>10</span>
+          <span className={value === speedLimit ? "text-primary font-medium" : ""}>
+            {speedLimit} 
+            {value === speedLimit && " ✓"}
+          </span>
+          <span>{maxSpeed}</span>
         </div>
       </div>
-      
-      {/* Overdrive warning */}
-      {value > speedLimit && (
-        <div className="mt-1 text-xs text-berry-600 dark:text-berry-400 font-medium animate-pulse-gentle">
-          {value - speedLimit} km/h over the speed limit
-        </div>
-      )}
     </div>
   );
 };

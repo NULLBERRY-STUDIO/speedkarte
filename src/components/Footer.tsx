@@ -1,69 +1,59 @@
 import React from "react";
-import { ExternalLink, Grape } from "lucide-react";
+import { Grape, Github } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const Footer: React.FC = () => {
+  const { t } = useLanguage();
   const currentYear = new Date().getFullYear();
   
   return (
-    <footer className="py-8 border-t mt-12">
+    <footer className="py-8 border-t border-border mt-12">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-          <div>
-            <h3 className="text-base font-semibold mb-2">Important Notice</h3>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+          <div className="md:col-span-1">
+            <div className="flex items-start space-x-2 mb-4">
+              <Grape className="w-5 h-5 text-berry-500 mt-0.5" />
+              <span className="text-base font-medium">
+                <span className="text-foreground">Nullberry</span>
+                <span className="text-muted-foreground ml-1">Studio</span>
+              </span>
+            </div>
             <p className="text-sm text-muted-foreground">
-              This calculator is for informational purposes only. Actual penalties may vary based on 
-              specific circumstances, local regulations, and legal interpretations. Always consult with 
-              legal professionals for specific advice.
+              An indie software studio dedicated to crafting better software & tools—no subscriptions, no ads, no hidden monetization tricks.
             </p>
           </div>
+          
           <div>
-            <h3 className="text-base font-semibold mb-2">More Resources</h3>
-            <ul className="text-sm text-muted-foreground space-y-1">
-              <li>
-                <a 
-                  href="https://www.bussgeldkatalog.org/en/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center hover:text-primary transition-colors"
-                >
-                  <ExternalLink className="h-3.5 w-3.5 mr-1" />
-                  Official German Penalty Catalog
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="https://www.adac.de/verkehr/recht/verkehrsvorschriften-deutschland/bussgeldrechner/" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center hover:text-primary transition-colors"
-                >
-                  <ExternalLink className="h-3.5 w-3.5 mr-1" />
-                  ADAC Fine Calculator (German)
-                </a>
-              </li>
-            </ul>
+            <h3 className="text-base font-semibold mb-2">{t.importantNotice}</h3>
+            <p className="text-sm text-muted-foreground">
+              {t.importantNoticeText}
+            </p>
+          </div>
+          
+          <div>
+           
           </div>
         </div>
         
-        <div className="flex flex-col md:flex-row items-center justify-between pt-6 border-t border-gray-100 dark:border-gray-800">
-          <div className="flex items-center mb-4 md:mb-0">
-            <Grape className="w-5 h-5 text-berry-500 mr-2" />
-            <span className="text-sm font-medium">
-              <span className="text-foreground">Speedkarte</span>
-              <span className="text-muted-foreground ml-1">by Nullberry Studio</span>
-            </span>
-          </div>
-          
-          <div className="text-center md:text-right text-sm text-muted-foreground">
-            <p>
-              Data based on the latest German traffic regulations effective {currentYear}.
-            </p>
-            <p className="mt-1">
-              &copy; {currentYear} German Driving License Points Calculator by Nullberry Studio
-            </p>
-            <p className="mt-1 text-xs text-muted-foreground/70">
-              Made with care. No tracking, no cookies.
-            </p>
+        <div className="mt-8 pt-6 border-t border-border flex flex-col md:flex-row items-center justify-between">
+          <p className="text-sm text-muted-foreground">
+            {t.dataBasedOn} {currentYear}. {t.copyrightText} {currentYear} Nullberry Studio.
+          </p>
+          <div className="flex items-center space-x-4 mt-4 md:mt-0">
+            <a 
+              href="https://github.com/NULLBERRY-STUDIO/speedkarte" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
+            >
+              <Github className="h-4 w-4" />
+            </a>
+            <a 
+              href="mailto:hello@nullberry.org" 
+              className="text-sm text-muted-foreground hover:text-foreground transition-colors duration-200"
+            >
+              Email
+            </a>
           </div>
         </div>
       </div>

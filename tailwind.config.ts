@@ -1,3 +1,4 @@
+
 import type { Config } from "tailwindcss";
 
 export default {
@@ -65,34 +66,6 @@ export default {
           'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
           border: 'hsl(var(--sidebar-border))',
           ring: 'hsl(var(--sidebar-ring))'
-        },
-        berry: {
-          DEFAULT: '#6E2594',
-          50: '#F6EEFB',
-          100: '#EBDDF5',
-          200: '#D7BBE9',
-          300: '#BC8BD8',
-          400: '#9E5AC3',
-          500: '#6E2594',
-          600: '#5D1F7C',
-          700: '#4C1964',
-          800: '#3B124C',
-          900: '#2A0C34',
-          950: '#1F0827'
-        },
-        void: {
-          DEFAULT: '#121212',
-          50: '#F7F7F7',
-          100: '#E3E3E3',
-          200: '#C8C8C8',
-          300: '#A4A4A4',
-          400: '#818181',
-          500: '#666666',
-          600: '#515151',
-          700: '#434343',
-          800: '#383838',
-          900: '#262626',
-          950: '#121212'
         }
       },
       borderRadius: {
@@ -132,10 +105,6 @@ export default {
         'pulse-gentle': {
           '0%, 100%': { opacity: '1' },
           '50%': { opacity: '0.8' }
-        },
-        'text-shimmer': {
-          '0%': { backgroundPosition: '100%' },
-          '100%': { backgroundPosition: '0%' }
         }
       },
       animation: {
@@ -146,13 +115,11 @@ export default {
         'slide-in': 'slide-in 0.6s ease-out',
         'scale-in': 'scale-in 0.4s ease-out',
         'float': 'float 6s ease-in-out infinite',
-        'pulse-gentle': 'pulse-gentle 3s ease-in-out infinite',
-        'text-shimmer': 'text-shimmer 2s ease-in-out infinite'
+        'pulse-gentle': 'pulse-gentle 3s ease-in-out infinite'
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'noise': "url('/noise.png')",
-        'gradient-noise': "url('/noise.png')"
+        'noise': "url('/noise.png')"
       },
       backdropBlur: {
         xs: '2px',

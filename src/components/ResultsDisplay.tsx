@@ -1,120 +1,203 @@
 import React from "react";
+import { Progress } from "@/components/ui/progress";
 import { PenaltyResult } from "@/lib/calculatePenalty";
-import { AlertCircle, Award, Gauge } from "lucide-react";
-import { LICENSE_SUSPENSION_THRESHOLD } from "@/lib/constants";
+import { Check, X, AlertTriangle, Clock } from "lucide-react";
+import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { Badge } from "@/components/ui/badge";
+import { ROAD_TYPES } from "@/lib/constants";
 
 interface ResultsDisplayProps {
   results: PenaltyResult;
+  labels?: {
+    title?: string;
+    points?: string;
+    fine?: string;
+    ban?: string;
+    risk?: string;
+    months?: string;
+    never?: string;
+    urban?: string;
+    rural?: string;
+    highway?: string;
+  }
 }
 
-const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ results }) => {
-  const { 
-    totalPoints, 
-    totalFine, 
-    banMonths, 
-    licenseSuspensionRisk, 
-    monthsUntilSuspension,
-  } = results;
+const ResultsDisplay: React.FC<ResultsDisplayProps> = ({ 
+  results,
+  labels = {} 
+}) => {
+  const {
+    title = "Your Results",
+    points = "Points on License",
+    fine = "Fine Amount",
+    ban = "License Ban",
+    risk = "Risk of License Suspension",
+    months = "Months until possible suspension",
+    never = "Never",
+    urban = "Urban",
+    rural = "Rural",
+    highway = "Highway"
+  } = labels;
   
-  // Calculate risk percentage for the progress bar
-  const riskPercentage = Math.min(100, Math.round(licenseSuspensionRisk * 100));
-  
-  // Determine risk level for UI indication
-  const getRiskLevel = () => {
-    if (riskPercentage < 30) return { level: "Low", color: "bg-emerald-500" };
-    if (riskPercentage < 60) return { level: "Moderate", color: "bg-amber-500" };
-    if (riskPercentage < 85) return { level: "High", color: "bg-orange-500" };
-    return { level: "Critical", color: "bg-berry-600 dark:bg-berry-500" };
+  // Helper to format Euro amounts
+  const formatEuro = (amount: number) => {
+    return new Intl.NumberFormat('de-DE', { 
+      style: 'currency', 
+      currency: 'EUR',
+      maximumFractionDigits: 0
+    }).format(amount);
   };
   
-  const riskInfo = getRiskLevel();
+  // Helper to format ban duration in months
+  const formatBanDuration = (months: number) => {
+    if (months === 0) return <Check className="text-green-500 h-5 w-5" />;
+    if (months === 1) return `1 ${ban} (1 month)`;
+    return `${ban} (${months} months)`;
+  };
   
-  // Format months until suspension message
-  const formatTimeline = () => {
-    if (!monthsUntilSuspension || monthsUntilSuspension > 120) {
-      return "You're driving safely!";
-    }
-    
-    if (monthsUntilSuspension <= 0) {
-      return "Immediate risk of license suspension!";
-    }
-    
-    const years = Math.floor(monthsUntilSuspension / 12);
-    const months = monthsUntilSuspension % 12;
-    
-    if (years > 0 && months > 0) {
-      return `License suspension in ~${years} year${years > 1 ? 's' : ''} and ${months} month${months > 1 ? 's' : ''}`;
-    } else if (years > 0) {
-      return `License suspension in ~${years} year${years > 1 ? 's' : ''}`;
-    } else {
-      return `License suspension in ~${months} month${months > 1 ? 's' : ''}`;
+  // Function to get risk level text
+  const getRiskLevelText = () => {
+    const { licenseSuspensionRisk } = results;
+    if (licenseSuspensionRisk === 0) return "No risk";
+    if (licenseSuspensionRisk < 0.3) return "Low risk";
+    if (licenseSuspensionRisk < 0.6) return "Medium risk";
+    if (licenseSuspensionRisk < 0.9) return "High risk";
+    return "Very high risk";
+  };
+  
+  // Function to get risk level color
+  const getRiskLevelColor = () => {
+    const { licenseSuspensionRisk } = results;
+    if (licenseSuspensionRisk === 0) return "bg-green-500";
+    if (licenseSuspensionRisk < 0.3) return "bg-emerald-500";
+    if (licenseSuspensionRisk < 0.6) return "bg-yellow-500";
+    if (licenseSuspensionRisk < 0.9) return "bg-orange-500";
+    return "bg-red-500";
+  };
+  
+  // Get road type label based on type
+  const getRoadTypeLabel = (roadType: string) => {
+    switch (roadType) {
+      case ROAD_TYPES.URBAN: return urban;
+      case ROAD_TYPES.RURAL: return rural;
+      case ROAD_TYPES.HIGHWAY: return highway;
+      default: return roadType;
     }
   };
   
   return (
-    <div className="frosted-glass-darker rounded-2xl p-5 md:p-6 shadow-lg animate-scale-in border border-neutral-200 dark:border-neutral-800">
-      <h3 className="text-xl font-semibold mb-4 flex items-center">
-        <Gauge className="w-5 h-5 text-berry-500 dark:text-berry-400 mr-2" />
-        <span className="text-gradient">Your Driving Assessment</span>
-      </h3>
+    <div className="glass-panel p-6 h-full flex flex-col">
+      <h2 className="section-title mb-4">{title}</h2>
       
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-        {/* Points and Timeline */}
-        <div className="bg-neutral-100 dark:bg-neutral-800 rounded-xl p-4">
-          <div className="mb-4">
-            <div className="text-sm text-gray-700 dark:text-gray-300 mb-1">Points per violation:</div>
-            <div className="text-3xl font-bold text-gray-900 dark:text-white">{totalPoints} <span className="text-sm font-normal text-gray-600 dark:text-gray-400">/ {LICENSE_SUSPENSION_THRESHOLD}</span></div>
-          </div>
-          
-          {/* Risk meter */}
-          <div className="mb-4">
-            <div className="flex justify-between mb-1">
-              <span className="text-sm text-gray-700 dark:text-gray-300">License Suspension Risk:</span>
-              <span className="text-sm font-medium">{riskInfo.level}</span>
-            </div>
-            <div className="h-3 bg-neutral-200 dark:bg-neutral-700 rounded-full overflow-hidden">
-              <div 
-                className={`h-full ${riskInfo.color} transition-all duration-700 ease-out`}
-                style={{ width: `${riskPercentage}%` }}
-              ></div>
-            </div>
-          </div>
-          
-          {/* Timeline */}
-          <div className="mb-3">
-            <div className="text-sm text-gray-700 dark:text-gray-300 mb-1">Timeline:</div>
-            <div className="text-base font-medium text-gray-800 dark:text-gray-200">
-              {formatTimeline()}
-            </div>
-          </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+        {/* Points */}
+        <div className="flex flex-col">
+          <span className="text-sm text-muted-foreground mb-1">{points}</span>
+          <span className="text-4xl font-bold mb-1">{results.totalPoints}</span>
+          {results.totalPoints > 0 && (
+            <Progress 
+              value={Math.min(100, (results.totalPoints / 8) * 100)} 
+              className="h-1.5 mt-1"
+              indicatorClassName={
+                results.totalPoints >= 6 ? "bg-red-500" :
+                results.totalPoints >= 4 ? "bg-orange-500" :
+                results.totalPoints >= 1 ? "bg-yellow-500" :
+                "bg-green-500"
+              }
+            />
+          )}
         </div>
         
-        {/* Monetary and Ban Info */}
-        <div className="bg-neutral-100 dark:bg-neutral-800 rounded-xl p-4">
-          <div className="mb-4">
-            <div className="text-sm text-gray-700 dark:text-gray-300 mb-1">Potential fine per violation:</div>
-            <div className="text-3xl font-bold text-gray-900 dark:text-white">€{totalFine}</div>
-          </div>
-          
-          {banMonths > 0 ? (
-            <div className="flex items-start space-x-2 text-berry-600 dark:text-berry-400 mb-3">
-              <AlertCircle className="w-5 h-5 mt-0.5 flex-shrink-0" />
-              <div>
-                <div className="font-medium">Temporary license suspension:</div>
-                <div>{banMonths} month{banMonths > 1 ? 's' : ''}</div>
-              </div>
-            </div>
-          ) : (
-            <div className="flex items-start space-x-2 text-emerald-500 mb-3">
-              <Award className="w-5 h-5 mt-0.5 flex-shrink-0" />
-              <div>
-                <div className="font-medium">No license suspension</div>
-                <div>Keep it up!</div>
-              </div>
-            </div>
+        {/* Fine */}
+        <div className="flex flex-col">
+          <span className="text-sm text-muted-foreground mb-1">{fine}</span>
+          <span className="text-4xl font-bold mb-1">{formatEuro(results.totalFine)}</span>
+          {results.totalFine > 0 && (
+            <Progress 
+              value={Math.min(100, (results.totalFine / 1000) * 100)} 
+              className="h-1.5 mt-1"
+              indicatorClassName={
+                results.totalFine >= 800 ? "bg-red-500" :
+                results.totalFine >= 500 ? "bg-orange-500" :
+                results.totalFine >= 100 ? "bg-yellow-500" :
+                "bg-green-500"
+              }
+            />
           )}
         </div>
       </div>
+      
+      {/* License Ban */}
+      <div className="flex flex-col mb-6">
+        <span className="text-sm text-muted-foreground mb-1">{ban}</span>
+        <span className="text-2xl font-semibold flex items-center gap-2">
+          {results.banMonths === 0 ? (
+            <>
+              <Check className="text-green-500 h-5 w-5" />
+              <span>No ban</span>
+            </>
+          ) : (
+            <>
+              <AlertTriangle className="text-red-500 h-5 w-5" />
+              <span>{results.banMonths} {results.banMonths === 1 ? 'month' : 'months'}</span>
+            </>
+          )}
+        </span>
+      </div>
+      
+      {/* License Suspension Risk */}
+      <div className="mb-6">
+        <span className="text-sm text-muted-foreground mb-2 block">{risk}</span>
+        <div className="h-4 w-full bg-gray-100 dark:bg-gray-800 rounded-full overflow-hidden">
+          <div 
+            className={`h-full ${getRiskLevelColor()} transition-all duration-500`}
+            style={{ width: `${results.licenseSuspensionRisk * 100}%` }}
+          ></div>
+        </div>
+        <div className="flex justify-between mt-2">
+          <span className="text-xs">{getRiskLevelText()}</span>
+          <span className="text-xs">{Math.round(results.licenseSuspensionRisk * 100)}%</span>
+        </div>
+        
+        {results.monthsUntilSuspension !== null && (
+          <div className="flex items-center gap-2 mt-3">
+            <Clock className="h-4 w-4 text-muted-foreground" />
+            <span className="text-sm">
+              {months}: <strong>
+                {results.monthsUntilSuspension > 500 
+                  ? never 
+                  : `~${results.monthsUntilSuspension} months`}
+              </strong>
+            </span>
+          </div>
+        )}
+      </div>
+      
+      {/* Detailed penalties */}
+      {results.detailedPenalties.some(p => p.points > 0 || p.fine > 0 || p.banMonths > 0) && (
+        <div className="mt-auto pt-4 border-t">
+          <h3 className="subsection-title mb-3">Detailed penalties</h3>
+          <div className="space-y-3">
+            {results.detailedPenalties.map((penalty, index) => (
+              penalty.points > 0 || penalty.fine > 0 || penalty.banMonths > 0 ? (
+                <div key={index} className="flex justify-between text-sm border-b pb-2">
+                  <div className="flex items-center gap-2">
+                    <Badge variant="outline" className="font-normal">
+                      {getRoadTypeLabel(penalty.roadType)}
+                    </Badge>
+                    <span>+{penalty.overSpeedAmount} km/h</span>
+                  </div>
+                  <div className="flex gap-4 tabular-nums text-right">
+                    <div>{penalty.points > 0 ? `${penalty.points} pts` : ''}</div>
+                    <div>{penalty.fine > 0 ? formatEuro(penalty.fine) : ''}</div>
+                    <div>{penalty.banMonths > 0 ? `${penalty.banMonths}m ban` : ''}</div>
+                  </div>
+                </div>
+              ) : null
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

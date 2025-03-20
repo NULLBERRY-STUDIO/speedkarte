@@ -1,3 +1,4 @@
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
@@ -6,91 +7,65 @@
 
 @layer base {
   :root {
-    --background: 0 0% 98%;
-    --foreground: 240 6% 10%;
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
 
     --card: 0 0% 100%;
-    --card-foreground: 240 6% 10%;
+    --card-foreground: 222 47% 11%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 240 6% 10%;
+    --popover-foreground: 222 47% 11%;
 
-    --primary: 292 55% 45%;
-    --primary-foreground: 0 0% 100%;
+    --primary: 222 47% 11%;
+    --primary-foreground: 210 40% 98%;
 
-    --secondary: 240 5% 96%;
-    --secondary-foreground: 240 6% 10%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
 
-    --muted: 240 5% 96%;
-    --muted-foreground: 240 4% 46%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
 
-    --accent: 292 55% 96%;
-    --accent-foreground: 292 55% 45%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222 47% 11%;
 
     --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 240 6% 90%;
-    --input: 240 6% 90%;
-    --ring: 292 55% 45%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 222 47% 11%;
 
     --radius: 0.75rem;
-
-    /* Berry colors */
-    --berry-50: 292 55% 98%;
-    --berry-100: 292 55% 96%;
-    --berry-200: 292 55% 90%;
-    --berry-300: 292 55% 80%;
-    --berry-400: 292 55% 65%;
-    --berry-500: 292 55% 45%;
-    --berry-600: 292 55% 35%;
-    --berry-700: 292 55% 25%;
-    --berry-800: 292 55% 20%;
-    --berry-900: 292 55% 15%;
-    --berry-950: 292 55% 10%;
   }
 
   .dark {
-    --background: 240 6% 10%;
-    --foreground: 0 0% 98%;
+    --background: 222 47% 11%;
+    --foreground: 210 40% 98%;
 
-    --card: 240 6% 13%;
-    --card-foreground: 0 0% 98%;
+    --card: 222 47% 11%;
+    --card-foreground: 210 40% 98%;
 
-    --popover: 240 6% 13%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 222 47% 11%;
+    --popover-foreground: 210 40% 98%;
 
-    --primary: 292 55% 65%;
-    --primary-foreground: 240 6% 10%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222 47% 11%;
 
-    --secondary: 240 4% 16%;
-    --secondary-foreground: 0 0% 98%;
+    --secondary: 217 33% 18%;
+    --secondary-foreground: 210 40% 98%;
 
-    --muted: 240 4% 16%;
-    --muted-foreground: 240 5% 65%;
+    --muted: 217 33% 18%;
+    --muted-foreground: 215 20% 65%;
 
-    --accent: 292 55% 20%;
-    --accent-foreground: 292 55% 65%;
+    --accent: 217 33% 18%;
+    --accent-foreground: 210 40% 98%;
 
     --destructive: 0 63% 31%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive-foreground: 210 40% 98%;
 
-    --border: 240 4% 16%;
-    --input: 240 4% 16%;
-    --ring: 292 55% 65%;
-
-    /* Berry colors - same in dark mode */
-    --berry-50: 292 55% 98%;
-    --berry-100: 292 55% 96%;
-    --berry-200: 292 55% 90%;
-    --berry-300: 292 55% 80%;
-    --berry-400: 292 55% 65%;
-    --berry-500: 292 55% 45%;
-    --berry-600: 292 55% 35%;
-    --berry-700: 292 55% 25%;
-    --berry-800: 292 55% 20%;
-    --berry-900: 292 55% 15%;
-    --berry-950: 292 55% 10%;
+    --border: 217 33% 18%;
+    --input: 217 33% 18%;
+    --ring: 213 27% 84%;
   }
 }
 
@@ -104,18 +79,14 @@
   }
 
   body {
-    @apply bg-background text-foreground min-h-screen;
+    @apply bg-background text-foreground min-h-screen transition-colors duration-300;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
 
 @layer components {
   .glass-panel {
-    @apply backdrop-blur-md bg-white/40 border border-white/20 rounded-2xl shadow-sm;
-  }
-  
-  .glass-panel-dark {
-    @apply backdrop-blur-md bg-black/30 border border-white/10 rounded-2xl shadow-sm;
+    @apply backdrop-blur-md bg-white/40 border border-white/20 rounded-2xl shadow-sm dark:bg-black/30 dark:border-white/10;
   }
   
   .text-balance {
@@ -130,20 +101,8 @@
     @apply text-lg font-medium tracking-tight;
   }
   
-  .slider-track {
-    @apply h-2 rounded-full bg-neutral-200 dark:bg-neutral-800 relative;
-  }
-  
-  .slider-track-filled {
-    @apply h-full rounded-full bg-berry-500 absolute left-0 top-0;
-  }
-  
-  .slider-thumb {
-    @apply w-5 h-5 rounded-full bg-berry-500 absolute top-1/2 transform -translate-y-1/2 -ml-2.5 cursor-pointer shadow-md transition-transform duration-100 hover:scale-110 active:scale-95;
-  }
-  
   .info-tag {
-    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-berry-100 dark:bg-berry-900 text-berry-600 dark:text-berry-300;
+    @apply inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-primary/10 text-primary dark:bg-primary/20;
   }
   
   .card-hover-effect {
@@ -151,25 +110,31 @@
   }
   
   .frosted-glass {
-    @apply backdrop-blur-md bg-neutral-100/70 dark:bg-neutral-800/50 border border-neutral-200/20 dark:border-neutral-700/20 shadow-sm;
+    @apply backdrop-blur-md bg-white/70 dark:bg-black/40 border border-white/20 dark:border-white/5 shadow-sm;
   }
   
   .frosted-glass-darker {
-    @apply backdrop-blur-md bg-neutral-50/90 dark:bg-neutral-900/70 border border-neutral-200/20 dark:border-neutral-700/20 shadow-sm;
-  }
-  
-  .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-berry-400 to-berry-600 dark:from-berry-300 dark:to-berry-500 animate-text-shimmer bg-[size:200%];
+    @apply backdrop-blur-md bg-white/90 dark:bg-black/60 border border-white/20 dark:border-white/10 shadow-sm;
   }
 }
 
+/* Animations */
 @layer utilities {
-  .animate-text-shimmer {
-    animation: text-shimmer 2s ease-in-out infinite;
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
   }
   
-  @keyframes text-shimmer {
-    0% { background-position: 100%; }
-    100% { background-position: 0%; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  .animate-scale-in {
+    animation: scaleIn 0.3s ease-out forwards;
+  }
+  
+  @keyframes scaleIn {
+    from { transform: scale(0.95); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
   }
 }

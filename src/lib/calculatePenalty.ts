@@ -1,5 +1,5 @@
 
-import { PENALTIES, ROAD_TYPES, RoadType, FREQUENCY_MULTIPLIER, FrequencyType, LICENSE_SUSPENSION_THRESHOLD } from './constants';
+import { PENALTIES, ROAD_TYPES, RoadType, FREQUENCY_MULTIPLIER, FrequencyType, LICENSE_SUSPENSION_THRESHOLD, SPEED_LIMITS } from './constants';
 
 export interface SpeedingData {
   urban: number;
@@ -24,7 +24,8 @@ export interface PenaltyResult {
 }
 
 // Helper function to find the applicable penalty for a specific road type and speed
-const findPenalty = (roadType: RoadType, actualSpeed: number, speedLimit: number) => {
+const findPenalty = (roadType: RoadType, actualSpeed: number) => {
+  const speedLimit = SPEED_LIMITS[roadType];
   const overSpeed = Math.max(0, actualSpeed - speedLimit);
   
   // No penalty if not speeding
@@ -56,9 +57,9 @@ export const calculatePenalty = (data: SpeedingData): PenaltyResult => {
   const frequencyMultiplier = FREQUENCY_MULTIPLIER[data.frequency];
   
   // Calculate penalties for each road type
-  const urbanPenalty = findPenalty(ROAD_TYPES.URBAN, data.urban, 50);
-  const ruralPenalty = findPenalty(ROAD_TYPES.RURAL, data.rural, 100);
-  const highwayPenalty = findPenalty(ROAD_TYPES.HIGHWAY, data.highway, 130);
+  const urbanPenalty = findPenalty(ROAD_TYPES.URBAN, data.urban);
+  const ruralPenalty = findPenalty(ROAD_TYPES.RURAL, data.rural);
+  const highwayPenalty = findPenalty(ROAD_TYPES.HIGHWAY, data.highway);
   
   // Calculate totals
   const detailedPenalties = [
