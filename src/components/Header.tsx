@@ -19,7 +19,6 @@ const Header: React.FC = () => {
             <Grape className="w-5 h-5 text-berry-500 mr-2" />
             <span className="text-base font-medium">
               <span className="text-foreground">Nullberry</span>
-              <span className="text-muted-foreground ml-1">Studio</span>
             </span>
           </div>
           
