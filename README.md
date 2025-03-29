@@ -13,6 +13,8 @@ Speedkarte helps users calculate potential penalties, points, and license suspen
 - Frequency-based risk assessment
 - Educational information about the German point system
 - Multi-language support (English, German, Turkish, Arabic, Spanish, Russian, French, Polish, Urdu)
+- Interactive changelog accessible from the version badge in footer
+- Semantic versioning (major.minor.patch)
 
 ## Technologies Used
 
@@ -41,6 +43,29 @@ npm i
 # Start the development server
 npm run dev
 ```
+
+### Version Management
+
+This project uses semantic versioning:
+
+- **Major** (x.0.0): Breaking changes
+- **Minor** (0.x.0): New features (backwards compatible)
+- **Patch** (0.0.x): Bug fixes and small changes
+
+To update the version number:
+
+```sh
+# Increment patch version (0.0.x)
+npm run version:patch
+
+# Increment minor version (0.x.0)
+npm run version:minor
+
+# Increment major version (x.0.0)
+npm run version:major
+```
+
+The current version is displayed in the footer and clicking on it opens a changelog modal showing the project's development history.
 
 ## Deployment
 

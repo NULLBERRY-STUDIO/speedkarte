@@ -1,14 +1,17 @@
 {
   "name": "vite_react_shadcn_ts",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.0.3",
   "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "vite build",
     "build:dev": "vite build --mode development",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "version:patch": "node -e \"const fs=require('fs');const p=require('./package.json');p.version=p.version.split('.').map((v,i)=>i===2?parseInt(v)+1:v).join('.');fs.writeFileSync('./package.json',JSON.stringify(p,null,2));console.log('Version updated to '+p.version);\"",
+    "version:minor": "node -e \"const fs=require('fs');const p=require('./package.json');p.version=p.version.split('.').map((v,i)=>i===1?(parseInt(v)+1):i===2?0:v).join('.');fs.writeFileSync('./package.json',JSON.stringify(p,null,2));console.log('Version updated to '+p.version);\"",
+    "version:major": "node -e \"const fs=require('fs');const p=require('./package.json');p.version=p.version.split('.').map((v,i)=>i===0?(parseInt(v)+1):0).join('.');fs.writeFileSync('./package.json',JSON.stringify(p,null,2));console.log('Version updated to '+p.version);\""
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.0",
