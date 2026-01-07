@@ -8,11 +8,23 @@ Speedkarte helps users calculate potential penalties, points, and license suspen
 
 ## Features
 
+### Manual Calculator
 - Calculate points, fines, and license ban risks based on speeding habits
 - Support for different road types (urban, rural, highway)
 - Frequency-based risk assessment
 - Educational information about the German point system
+
+### Real-Time Driving Mode
+- Live GPS speed tracking while driving
+- Automatic speed limit detection via OpenStreetMap
+- Instant fine calculation based on current speed vs. limit
+- Voice announcements through text-to-speech (great for Bluetooth headsets)
+- Manual road type override option
+- Privacy-focused: all data stays on your device
+
+### General
 - Multi-language support (English, German, Turkish, Arabic, Spanish, Russian, French, Polish, Urdu)
+- Dark/Light theme toggle
 - Interactive changelog accessible from the version badge in footer
 - Semantic versioning (major.minor.patch)
 
@@ -25,6 +37,12 @@ This project is built with:
 - React
 - shadcn-ui
 - Tailwind CSS
+
+### APIs (No configuration required)
+
+- **OpenStreetMap Overpass API** - Speed limit detection from GPS coordinates
+- **Browser Geolocation API** - GPS tracking for Driving Mode
+- **Web Speech API** - Voice announcements for hands-free alerts
 
 ## Development
 

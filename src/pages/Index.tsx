@@ -1,14 +1,16 @@
 
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import SpeedSlider from "@/components/SpeedSlider";
 import ResultsDisplay from "@/components/ResultsDisplay";
 import InfoCard from "@/components/InfoCard";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { Button } from "@/components/ui/button";
 import { FREQUENCY, FrequencyType, ROAD_TYPES } from "@/lib/constants";
 import { calculatePenalty, SpeedingData, PenaltyResult } from "@/lib/calculatePenalty";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import { Car, Gauge, AlertTriangle } from "lucide-react";
+import { Car, Gauge, AlertTriangle, Navigation } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -93,6 +95,29 @@ const Index = () => {
       
       <main className="flex-grow">
         <div className="container mx-auto px-4 py-6">
+          {/* Driving Mode CTA */}
+          <div className="mb-6 p-4 glass-panel rounded-xl bg-gradient-to-r from-primary/10 to-primary/5 border border-primary/20 animate-fade-in">
+            <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+              <div className="flex items-center gap-3">
+                <div className="p-2 rounded-full bg-primary/20">
+                  <Navigation className="h-5 w-5 text-primary" />
+                </div>
+                <div>
+                  <h3 className="font-semibold">{t.drivingModeTitle || 'Real-Time Driving Mode'}</h3>
+                  <p className="text-sm text-muted-foreground">
+                    {t.drivingModeSubtitle || 'Get live fine calculations while driving with voice alerts'}
+                  </p>
+                </div>
+              </div>
+              <Link to="/drive">
+                <Button className="whitespace-nowrap">
+                  <Navigation className="mr-2 h-4 w-4" />
+                  {t.startDrivingMode || 'Start Driving Mode'}
+                </Button>
+              </Link>
+            </div>
+          </div>
+
           {/* Main calculator section */}
           <div className={`${isMobile ? 'flex flex-col' : 'grid grid-cols-1 lg:grid-cols-5'} gap-6 mb-10 animate-fade-in`}>
             {/* For mobile, show results first */}

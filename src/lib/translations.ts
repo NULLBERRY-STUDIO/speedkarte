@@ -14,23 +14,23 @@ export interface Translation {
   // Page headers
   pageTitle: string;
   pageSubtitle: string;
-  
+
   // Speed section
   yourDrivingSpeed: string;
   howOftenDrive: string;
   resetToLimit: string;
-  
+
   // Road types
   urban: string;
   rural: string;
   highway: string;
-  
+
   // Frequency options
   rarely: string;
   occasionally: string;
   regularly: string;
   often: string;
-  
+
   // Results section
   resultsTitle: string;
   pointsLabel: string;
@@ -39,16 +39,16 @@ export interface Translation {
   suspensionRiskLabel: string;
   monthsUntilSuspensionLabel: string;
   neverLabel: string;
-  
+
   // Educational section
   aboutTitle: string;
-  
+
   // Educational info cards
   educationalInfo: Array<{
     title: string;
     content: string;
   }>;
-  
+
   // Footer texts
   importantNotice: string;
   importantNoticeText: string;
@@ -57,6 +57,38 @@ export interface Translation {
   adacCalculator: string;
   dataBasedOn: string;
   copyrightText: string;
+
+  // Driving Mode
+  drivingModeTitle: string;
+  drivingModeSubtitle: string;
+  startDrivingMode: string;
+  drivingMode: string;
+  drivingModeDescription: string;
+  enableLocation: string;
+  locationPrivacy: string;
+  gpsNotSupported: string;
+  gpsNotSupportedDescription: string;
+  backToCalculator: string;
+  locationRequired: string;
+  locationRequiredDescription: string;
+  tryAgain: string;
+  useManualCalculator: string;
+  selectRoadType: string;
+  useAutoDetection: string;
+  speaking: string;
+  limit: string;
+  noLimit: string;
+  overLimit: string;
+  speedOk: string;
+  waitingForGPS: string;
+  point: string;
+  points: string;
+  month: string;
+  months: string;
+  drivingBan: string;
+  urbanRoads: string;
+  ruralRoads: string;
+  highways: string;
 }
 
 // Default language (English)
@@ -116,7 +148,39 @@ export const en: Translation = {
   germanPenaltyCatalog: "Official German Penalty Catalog",
   adacCalculator: "ADAC Fine Calculator (German)",
   dataBasedOn: "Data based on the latest German traffic regulations effective",
-  copyrightText: "Speedkarte"
+  copyrightText: "Speedkarte",
+
+  // Driving Mode
+  drivingModeTitle: "Real-Time Driving Mode",
+  drivingModeSubtitle: "Get live fine calculations while driving with voice alerts",
+  startDrivingMode: "Start Driving Mode",
+  drivingMode: "Driving Mode",
+  drivingModeDescription: "Track your speed in real-time and see instant fine calculations based on German traffic laws.",
+  enableLocation: "Enable Location",
+  locationPrivacy: "Your location data stays on your device and is not sent to any server.",
+  gpsNotSupported: "GPS Not Supported",
+  gpsNotSupportedDescription: "Your browser does not support GPS location. Please try a different browser or use the manual calculator.",
+  backToCalculator: "Back to Calculator",
+  locationRequired: "Location Required",
+  locationRequiredDescription: "Please enable location access in your browser settings to use driving mode.",
+  tryAgain: "Try Again",
+  useManualCalculator: "Use Manual Calculator",
+  selectRoadType: "Select road type manually",
+  useAutoDetection: "Use auto-detection",
+  speaking: "Speaking...",
+  limit: "Limit",
+  noLimit: "No limit",
+  overLimit: "over limit",
+  speedOk: "Speed is fine",
+  waitingForGPS: "Waiting for GPS signal...",
+  point: "Point",
+  points: "Points",
+  month: "Month",
+  months: "Months",
+  drivingBan: "driving ban",
+  urbanRoads: "Urban",
+  ruralRoads: "Rural",
+  highways: "Highway"
 };
 
 // German translations
@@ -176,7 +240,39 @@ export const de: Translation = {
   germanPenaltyCatalog: "Offizieller deutscher Bußgeldkatalog",
   adacCalculator: "ADAC Bußgeldrechner",
   dataBasedOn: "Daten basierend auf den neuesten deutschen Verkehrsvorschriften, gültig ab",
-  copyrightText: "Speedkarte"
+  copyrightText: "Speedkarte",
+
+  // Driving Mode
+  drivingModeTitle: "Echtzeit-Fahrmodus",
+  drivingModeSubtitle: "Erhalten Sie Live-Bußgeldberechnungen während der Fahrt mit Sprachansagen",
+  startDrivingMode: "Fahrmodus starten",
+  drivingMode: "Fahrmodus",
+  drivingModeDescription: "Verfolgen Sie Ihre Geschwindigkeit in Echtzeit und sehen Sie sofortige Bußgeldberechnungen basierend auf deutschen Verkehrsgesetzen.",
+  enableLocation: "Standort aktivieren",
+  locationPrivacy: "Ihre Standortdaten bleiben auf Ihrem Gerät und werden nicht an Server gesendet.",
+  gpsNotSupported: "GPS nicht unterstützt",
+  gpsNotSupportedDescription: "Ihr Browser unterstützt kein GPS. Bitte verwenden Sie einen anderen Browser oder den manuellen Rechner.",
+  backToCalculator: "Zurück zum Rechner",
+  locationRequired: "Standort erforderlich",
+  locationRequiredDescription: "Bitte aktivieren Sie den Standortzugriff in Ihren Browsereinstellungen.",
+  tryAgain: "Erneut versuchen",
+  useManualCalculator: "Manuellen Rechner verwenden",
+  selectRoadType: "Straßentyp manuell auswählen",
+  useAutoDetection: "Automatische Erkennung verwenden",
+  speaking: "Spricht...",
+  limit: "Limit",
+  noLimit: "Kein Limit",
+  overLimit: "drüber",
+  speedOk: "Geschwindigkeit in Ordnung",
+  waitingForGPS: "Warte auf GPS-Signal...",
+  point: "Punkt",
+  points: "Punkte",
+  month: "Monat",
+  months: "Monate",
+  drivingBan: "Fahrverbot",
+  urbanRoads: "Innerorts",
+  ruralRoads: "Außerorts",
+  highways: "Autobahn"
 };
 
 // Turkish translations
@@ -236,7 +332,39 @@ export const tr: Translation = {
   germanPenaltyCatalog: "Resmi Alman Ceza Kataloğu",
   adacCalculator: "ADAC Para Cezası Hesaplayıcı (Almanca)",
   dataBasedOn: "Veriler, geçerli olan en son Alman trafik düzenlemelerine dayanmaktadır",
-  copyrightText: "Speedkarte"
+  copyrightText: "Speedkarte",
+
+  // Driving Mode
+  drivingModeTitle: "Gerçek Zamanlı Sürüş Modu",
+  drivingModeSubtitle: "Sürüş sırasında sesli uyarılarla canlı ceza hesaplamaları alın",
+  startDrivingMode: "Sürüş Modunu Başlat",
+  drivingMode: "Sürüş Modu",
+  drivingModeDescription: "Hızınızı gerçek zamanlı takip edin ve Alman trafik yasalarına göre anlık ceza hesaplamalarını görün.",
+  enableLocation: "Konumu Etkinleştir",
+  locationPrivacy: "Konum verileriniz cihazınızda kalır ve hiçbir sunucuya gönderilmez.",
+  gpsNotSupported: "GPS Desteklenmiyor",
+  gpsNotSupportedDescription: "Tarayıcınız GPS konumunu desteklemiyor. Lütfen başka bir tarayıcı deneyin veya manuel hesaplayıcıyı kullanın.",
+  backToCalculator: "Hesaplayıcıya Dön",
+  locationRequired: "Konum Gerekli",
+  locationRequiredDescription: "Sürüş modunu kullanmak için lütfen tarayıcı ayarlarınızda konum erişimini etkinleştirin.",
+  tryAgain: "Tekrar Dene",
+  useManualCalculator: "Manuel Hesaplayıcıyı Kullan",
+  selectRoadType: "Yol tipini manuel seçin",
+  useAutoDetection: "Otomatik algılamayı kullan",
+  speaking: "Konuşuyor...",
+  limit: "Limit",
+  noLimit: "Limit yok",
+  overLimit: "üzerinde",
+  speedOk: "Hız uygun",
+  waitingForGPS: "GPS sinyali bekleniyor...",
+  point: "Puan",
+  points: "Puan",
+  month: "Ay",
+  months: "Ay",
+  drivingBan: "sürüş yasağı",
+  urbanRoads: "Şehir içi",
+  ruralRoads: "Kırsal",
+  highways: "Otoyol"
 };
 
 // Arabic translations
@@ -296,7 +424,39 @@ export const ar: Translation = {
   germanPenaltyCatalog: "كتالوج العقوبات الألماني الرسمي",
   adacCalculator: "آلة حاسبة ADAC للغرامات (بالألمانية)",
   dataBasedOn: "البيانات مستندة إلى أحدث لوائح المرور الألمانية السارية",
-  copyrightText: "Speedkarte"
+  copyrightText: "Speedkarte",
+
+  // Driving Mode
+  drivingModeTitle: "وضع القيادة في الوقت الفعلي",
+  drivingModeSubtitle: "احصل على حسابات الغرامات المباشرة أثناء القيادة مع التنبيهات الصوتية",
+  startDrivingMode: "بدء وضع القيادة",
+  drivingMode: "وضع القيادة",
+  drivingModeDescription: "تتبع سرعتك في الوقت الفعلي وشاهد حسابات الغرامات الفورية بناءً على قوانين المرور الألمانية.",
+  enableLocation: "تفعيل الموقع",
+  locationPrivacy: "تبقى بيانات موقعك على جهازك ولا يتم إرسالها إلى أي خادم.",
+  gpsNotSupported: "GPS غير مدعوم",
+  gpsNotSupportedDescription: "متصفحك لا يدعم موقع GPS. يرجى تجربة متصفح آخر أو استخدام الآلة الحاسبة اليدوية.",
+  backToCalculator: "العودة إلى الآلة الحاسبة",
+  locationRequired: "الموقع مطلوب",
+  locationRequiredDescription: "يرجى تفعيل الوصول إلى الموقع في إعدادات المتصفح لاستخدام وضع القيادة.",
+  tryAgain: "حاول مرة أخرى",
+  useManualCalculator: "استخدام الآلة الحاسبة اليدوية",
+  selectRoadType: "اختر نوع الطريق يدويًا",
+  useAutoDetection: "استخدام الكشف التلقائي",
+  speaking: "يتحدث...",
+  limit: "الحد",
+  noLimit: "لا يوجد حد",
+  overLimit: "فوق الحد",
+  speedOk: "السرعة جيدة",
+  waitingForGPS: "في انتظار إشارة GPS...",
+  point: "نقطة",
+  points: "نقاط",
+  month: "شهر",
+  months: "أشهر",
+  drivingBan: "حظر القيادة",
+  urbanRoads: "حضري",
+  ruralRoads: "ريفي",
+  highways: "طريق سريع"
 };
 
 // Spanish translations
@@ -356,7 +516,39 @@ export const es: Translation = {
   germanPenaltyCatalog: "Catálogo Oficial de Sanciones Alemán",
   adacCalculator: "Calculadora de Multas ADAC (Alemán)",
   dataBasedOn: "Datos basados en las últimas regulaciones de tráfico alemanas vigentes",
-  copyrightText: "Speedkarte"
+  copyrightText: "Speedkarte",
+
+  // Driving Mode
+  drivingModeTitle: "Modo de Conducción en Tiempo Real",
+  drivingModeSubtitle: "Obtenga cálculos de multas en vivo mientras conduce con alertas de voz",
+  startDrivingMode: "Iniciar Modo de Conducción",
+  drivingMode: "Modo de Conducción",
+  drivingModeDescription: "Rastree su velocidad en tiempo real y vea cálculos instantáneos de multas basados en las leyes de tráfico alemanas.",
+  enableLocation: "Habilitar Ubicación",
+  locationPrivacy: "Sus datos de ubicación permanecen en su dispositivo y no se envían a ningún servidor.",
+  gpsNotSupported: "GPS No Soportado",
+  gpsNotSupportedDescription: "Su navegador no soporta ubicación GPS. Por favor, intente con otro navegador o use la calculadora manual.",
+  backToCalculator: "Volver a la Calculadora",
+  locationRequired: "Ubicación Requerida",
+  locationRequiredDescription: "Por favor, habilite el acceso a la ubicación en la configuración de su navegador para usar el modo de conducción.",
+  tryAgain: "Intentar de Nuevo",
+  useManualCalculator: "Usar Calculadora Manual",
+  selectRoadType: "Seleccionar tipo de vía manualmente",
+  useAutoDetection: "Usar detección automática",
+  speaking: "Hablando...",
+  limit: "Límite",
+  noLimit: "Sin límite",
+  overLimit: "sobre el límite",
+  speedOk: "Velocidad correcta",
+  waitingForGPS: "Esperando señal GPS...",
+  point: "Punto",
+  points: "Puntos",
+  month: "Mes",
+  months: "Meses",
+  drivingBan: "prohibición de conducir",
+  urbanRoads: "Urbano",
+  ruralRoads: "Rural",
+  highways: "Autopista"
 };
 
 // Russian translations
@@ -416,7 +608,39 @@ export const ru: Translation = {
   germanPenaltyCatalog: "Официальный каталог штрафов Германии",
   adacCalculator: "Калькулятор штрафов ADAC (на немецком)",
   dataBasedOn: "Данные основаны на последних правилах дорожного движения Германии, действующих с",
-  copyrightText: "Speedkarte"
+  copyrightText: "Speedkarte",
+
+  // Driving Mode
+  drivingModeTitle: "Режим вождения в реальном времени",
+  drivingModeSubtitle: "Получайте расчёты штрафов в реальном времени с голосовыми оповещениями",
+  startDrivingMode: "Запустить режим вождения",
+  drivingMode: "Режим вождения",
+  drivingModeDescription: "Отслеживайте свою скорость в реальном времени и мгновенно видите расчёты штрафов согласно немецким правилам дорожного движения.",
+  enableLocation: "Включить геолокацию",
+  locationPrivacy: "Ваши данные о местоположении остаются на устройстве и не отправляются на серверы.",
+  gpsNotSupported: "GPS не поддерживается",
+  gpsNotSupportedDescription: "Ваш браузер не поддерживает GPS. Пожалуйста, используйте другой браузер или ручной калькулятор.",
+  backToCalculator: "Вернуться к калькулятору",
+  locationRequired: "Требуется геолокация",
+  locationRequiredDescription: "Пожалуйста, включите доступ к местоположению в настройках браузера для использования режима вождения.",
+  tryAgain: "Попробовать снова",
+  useManualCalculator: "Использовать ручной калькулятор",
+  selectRoadType: "Выбрать тип дороги вручную",
+  useAutoDetection: "Использовать автоопределение",
+  speaking: "Говорит...",
+  limit: "Лимит",
+  noLimit: "Без ограничения",
+  overLimit: "превышение",
+  speedOk: "Скорость в норме",
+  waitingForGPS: "Ожидание сигнала GPS...",
+  point: "Балл",
+  points: "Баллов",
+  month: "Месяц",
+  months: "Месяцев",
+  drivingBan: "запрет на вождение",
+  urbanRoads: "Город",
+  ruralRoads: "За городом",
+  highways: "Автомагистраль"
 };
 
 // French translations
@@ -476,7 +700,39 @@ export const fr: Translation = {
   germanPenaltyCatalog: "Catalogue Officiel des Sanctions Allemand",
   adacCalculator: "Calculateur d'Amendes ADAC (Allemand)",
   dataBasedOn: "Données basées sur les dernières réglementations de circulation allemandes en vigueur",
-  copyrightText: "Speedkarte"
+  copyrightText: "Speedkarte",
+
+  // Driving Mode
+  drivingModeTitle: "Mode de Conduite en Temps Réel",
+  drivingModeSubtitle: "Obtenez des calculs d'amendes en direct pendant la conduite avec des alertes vocales",
+  startDrivingMode: "Démarrer le Mode Conduite",
+  drivingMode: "Mode Conduite",
+  drivingModeDescription: "Suivez votre vitesse en temps réel et voyez les calculs d'amendes instantanés basés sur le code de la route allemand.",
+  enableLocation: "Activer la Localisation",
+  locationPrivacy: "Vos données de localisation restent sur votre appareil et ne sont envoyées à aucun serveur.",
+  gpsNotSupported: "GPS Non Supporté",
+  gpsNotSupportedDescription: "Votre navigateur ne supporte pas la localisation GPS. Veuillez essayer un autre navigateur ou utiliser le calculateur manuel.",
+  backToCalculator: "Retour au Calculateur",
+  locationRequired: "Localisation Requise",
+  locationRequiredDescription: "Veuillez activer l'accès à la localisation dans les paramètres de votre navigateur pour utiliser le mode conduite.",
+  tryAgain: "Réessayer",
+  useManualCalculator: "Utiliser le Calculateur Manuel",
+  selectRoadType: "Sélectionner le type de route manuellement",
+  useAutoDetection: "Utiliser la détection automatique",
+  speaking: "Parle...",
+  limit: "Limite",
+  noLimit: "Pas de limite",
+  overLimit: "au-dessus de la limite",
+  speedOk: "Vitesse correcte",
+  waitingForGPS: "En attente du signal GPS...",
+  point: "Point",
+  points: "Points",
+  month: "Mois",
+  months: "Mois",
+  drivingBan: "interdiction de conduire",
+  urbanRoads: "Urbain",
+  ruralRoads: "Rural",
+  highways: "Autoroute"
 };
 
 // Polish translations
@@ -536,7 +792,39 @@ export const pl: Translation = {
   germanPenaltyCatalog: "Oficjalny Niemiecki Katalog Kar",
   adacCalculator: "Kalkulator Grzywien ADAC (po niemiecku)",
   dataBasedOn: "Dane oparte na najnowszych niemieckich przepisach drogowych obowiązujących od",
-  copyrightText: "Speedkarte"
+  copyrightText: "Speedkarte",
+
+  // Driving Mode
+  drivingModeTitle: "Tryb Jazdy w Czasie Rzeczywistym",
+  drivingModeSubtitle: "Otrzymuj obliczenia mandatów na żywo podczas jazdy z alertami głosowymi",
+  startDrivingMode: "Uruchom Tryb Jazdy",
+  drivingMode: "Tryb Jazdy",
+  drivingModeDescription: "Śledź swoją prędkość w czasie rzeczywistym i zobacz natychmiastowe obliczenia mandatów zgodnie z niemieckim kodeksem drogowym.",
+  enableLocation: "Włącz Lokalizację",
+  locationPrivacy: "Twoje dane lokalizacyjne pozostają na urządzeniu i nie są wysyłane na żaden serwer.",
+  gpsNotSupported: "GPS Nie Obsługiwany",
+  gpsNotSupportedDescription: "Twoja przeglądarka nie obsługuje lokalizacji GPS. Spróbuj innej przeglądarki lub użyj ręcznego kalkulatora.",
+  backToCalculator: "Powrót do Kalkulatora",
+  locationRequired: "Wymagana Lokalizacja",
+  locationRequiredDescription: "Włącz dostęp do lokalizacji w ustawieniach przeglądarki, aby korzystać z trybu jazdy.",
+  tryAgain: "Spróbuj Ponownie",
+  useManualCalculator: "Użyj Ręcznego Kalkulatora",
+  selectRoadType: "Wybierz typ drogi ręcznie",
+  useAutoDetection: "Użyj automatycznego wykrywania",
+  speaking: "Mówi...",
+  limit: "Limit",
+  noLimit: "Bez limitu",
+  overLimit: "powyżej limitu",
+  speedOk: "Prędkość w porządku",
+  waitingForGPS: "Oczekiwanie na sygnał GPS...",
+  point: "Punkt",
+  points: "Punktów",
+  month: "Miesiąc",
+  months: "Miesięcy",
+  drivingBan: "zakaz prowadzenia",
+  urbanRoads: "Miasto",
+  ruralRoads: "Poza miastem",
+  highways: "Autostrada"
 };
 
 // Urdu translations
@@ -596,7 +884,39 @@ export const ur: Translation = {
   germanPenaltyCatalog: "سرکاری جرمن سزا کیٹلاگ",
   adacCalculator: "ADAC جرمانہ کیلکولیٹر (جرمن میں)",
   dataBasedOn: "ڈیٹا جرمنی کے تازہ ترین ٹریفک ضوابط پر مبنی ہے جو مؤثر ہیں",
-  copyrightText: "Speedkarte"
+  copyrightText: "Speedkarte",
+
+  // Driving Mode
+  drivingModeTitle: "ریئل ٹائم ڈرائیونگ موڈ",
+  drivingModeSubtitle: "ڈرائیونگ کے دوران آواز کے انتباہات کے ساتھ براہ راست جرمانے کے حسابات حاصل کریں",
+  startDrivingMode: "ڈرائیونگ موڈ شروع کریں",
+  drivingMode: "ڈرائیونگ موڈ",
+  drivingModeDescription: "اپنی رفتار کو ریئل ٹائم میں ٹریک کریں اور جرمن ٹریفک قوانین کی بنیاد پر فوری جرمانے کے حسابات دیکھیں۔",
+  enableLocation: "مقام فعال کریں",
+  locationPrivacy: "آپ کا مقام کا ڈیٹا آپ کے آلے پر رہتا ہے اور کسی سرور کو نہیں بھیجا جاتا۔",
+  gpsNotSupported: "GPS سپورٹ نہیں ہے",
+  gpsNotSupportedDescription: "آپ کا براؤزر GPS مقام کو سپورٹ نہیں کرتا۔ براہ کرم کوئی اور براؤزر آزمائیں یا دستی کیلکولیٹر استعمال کریں۔",
+  backToCalculator: "کیلکولیٹر پر واپس جائیں",
+  locationRequired: "مقام درکار ہے",
+  locationRequiredDescription: "ڈرائیونگ موڈ استعمال کرنے کے لیے براہ کرم اپنی براؤزر کی ترتیبات میں مقام تک رسائی فعال کریں۔",
+  tryAgain: "دوبارہ کوشش کریں",
+  useManualCalculator: "دستی کیلکولیٹر استعمال کریں",
+  selectRoadType: "سڑک کی قسم دستی طور پر منتخب کریں",
+  useAutoDetection: "خود کار پتہ لگانا استعمال کریں",
+  speaking: "بول رہا ہے...",
+  limit: "حد",
+  noLimit: "کوئی حد نہیں",
+  overLimit: "حد سے زیادہ",
+  speedOk: "رفتار ٹھیک ہے",
+  waitingForGPS: "GPS سگنل کا انتظار...",
+  point: "پوائنٹ",
+  points: "پوائنٹس",
+  month: "مہینہ",
+  months: "مہینے",
+  drivingBan: "ڈرائیونگ پر پابندی",
+  urbanRoads: "شہری",
+  ruralRoads: "دیہی",
+  highways: "ہائی وے"
 };
 
 // Update all supported languages
